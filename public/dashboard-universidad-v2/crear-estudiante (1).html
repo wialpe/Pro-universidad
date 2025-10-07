@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Sistema Educativo - Crear Estudiante</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper"></div>
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <div id="topbar-wrapper"></div>
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Crear Estudiante</h1>
+                        <a href="listado-estudiantes.html" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                            <i class="fas fa-list fa-sm text-white-50"></i> Listado </a>
+                    </div>
+
+                    <!-- Content Row -->
+                    <div class="row">
+                        <div class="col-8">
+                            <form id="form-estudiante">
+                                <!-- Nombre -->
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <label class="form-label" for="nombre-estudiante">Nombre</label>
+                                        <input type="text" id="nombre-estudiante" class="form-control" required />
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="form-label" for="apellido-estudiante">Apellido</label>
+                                        <input type="text" id="apellido-estudiante" class="form-control" required />
+                                    </div>
+                                </div>
+
+                                <!-- Email -->
+                                <div class="form-group">
+                                    <label class="form-label" for="email-estudiante">Email</label>
+                                    <input type="email" id="email-estudiante" class="form-control" required />
+                                </div>
+
+                                <!-- Celular -->
+                                <div class="form-group">
+                                    <label class="form-label" for="celular-estudiante">Celular</label>
+                                    <input type="tel" id="celular-estudiante" class="form-control" required />
+                                </div>
+
+                                <!-- Grado -->
+                                <div class="form-group">
+                                    <label class="form-label" for="grado-estudiante">Grado</label>
+                                    <select id="grado-estudiante" class="form-control" required>
+                                        <option value="">Seleccionar Grado</option>
+                                        <option value="1°">1° Primaria</option>
+                                        <option value="2°">2° Primaria</option>
+                                        <option value="3°">3° Primaria</option>
+                                        <option value="4°">4° Primaria</option>
+                                        <option value="5°">5° Primaria</option>
+                                        <option value="6°">6° Primaria</option>
+                                        <option value="7°">7° Secundaria</option>
+                                        <option value="8°">8° Secundaria</option>
+                                        <option value="9°">9° Secundaria</option>
+                                        <option value="10°">10° Secundaria</option>
+                                        <option value="11°">11° Secundaria</option>
+                                    </select>
+                                </div>
+
+                                <!-- Direcciones -->
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <label class="form-label" for="direccion-estudiante">Dirección Principal</label>
+                                        <input type="text" id="direccion-estudiante" class="form-control" required />
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="form-label" for="direccion2-estudiante">Dirección Secundaria</label>
+                                        <input type="text" id="direccion2-estudiante" class="form-control" />
+                                    </div>
+                                </div>
+
+                                <!-- Información Académica -->
+                                <div class="form-group">
+                                    <label class="form-label" for="info-academica">Información Académica</label>
+                                    <textarea class="form-control" id="info-academica" rows="4"></textarea>
+                                </div>
+
+                                <!-- Botones -->
+                                <button type="button" class="btn-create btn btn-primary btn-block mb-4">Crear Estudiante</button>
+                                <button type="button" class="d-none btn-update btn btn-success btn-block mb-4">Actualizar Estudiante</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Sistema Educativo 2024</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+        </div>
+        <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">¿Listo para salir?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Selecciona "Cerrar Sesión" si estás listo para finalizar tu sesión actual.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-primary" href="login.html">Cerrar Sesión</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="js/sb-admin-2.min.js"></script>
+    
+    <!-- Componentes -->
+    <script src="js/components/sidebar.js"></script>
+    <script src="js/components/topbar.js"></script>
+    
+    <!-- Script específico del módulo -->
+    <script src="js/modulos/crear-estudiante.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Sistema Educativo - Registrar Asistencia</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper"></div>
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <div id="topbar-wrapper"></div>
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Registrar Asistencia</h1>
+                        <a href="listado-asistencias.html" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                            <i class="fas fa-list fa-sm text-white-50"></i> Listado </a>
+                    </div>
+
+                    <!-- Content Row -->
+                    <div class="row">
+                        <div class="col-8">
+                            <form id="form-asistencia">
+                                <!-- Información Básica -->
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <label class="form-label" for="estudiante-select">Estudiante</label>
+                                        <select id="estudiante-select" class="form-control" required>
+                                            <option value="">Seleccionar Estudiante</option>
+                                            <option value="1">Alan Brito - 10°</option>
+                                            <option value="2">Zoyla Vaca - 11°</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="form-label" for="asignatura-select">Asignatura</label>
+                                        <select id="asignatura-select" class="form-control" required>
+                                            <option value="">Seleccionar Asignatura</option>
+                                            <option value="matematicas">Matemáticas</option>
+                                            <option value="lenguaje">Lenguaje</option>
+                                            <option value="ciencias">Ciencias</option>
+                                            <option value="sociales">Sociales</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <label class="form-label" for="fecha-clase">Fecha de la Clase</label>
+                                        <input type="date" id="fecha-clase" class="form-control" required />
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="form-label" for="hora-clase">Hora de la Clase</label>
+                                        <input type="time" id="hora-clase" class="form-control" required />
+                                    </div>
+                                </div>
+
+                                <!-- Estado de Asistencia -->
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Estado de Asistencia</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label class="form-label">Estado</label>
+                                            <div class="row">
+                                                <div class="col-md-3 mb-3">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="estado" id="estado-presente" value="presente" checked>
+                                                        <label class="form-check-label" for="estado-presente">
+                                                            <span class="badge badge-success">Presente</span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 mb-3">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="estado" id="estado-ausente" value="ausente">
+                                                        <label class="form-check-label" for="estado-ausente">
+                                                            <span class="badge badge-danger">Ausente</span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 mb-3">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="estado" id="estado-tardanza" value="tardanza">
+                                                        <label class="form-check-label" for="estado-tardanza">
+                                                            <span class="badge badge-warning">Tardanza</span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 mb-3">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="estado" id="estado-justificado" value="justificado">
+                                                        <label class="form-check-label" for="estado-justificado">
+                                                            <span class="badge badge-info">Justificado</span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Campos condicionales -->
+                                        <div id="campo-tardanza" class="form-group" style="display: none;">
+                                            <label class="form-label" for="minutos-tardanza">Minutos de Tardanza</label>
+                                            <input type="number" id="minutos-tardanza" class="form-control" min="1" max="120" placeholder="Ej: 15" />
+                                        </div>
+
+                                        <div id="campo-justificacion" class="form-group" style="display: none;">
+                                            <label class="form-label" for="tipo-justificacion">Tipo de Justificación</label>
+                                            <select id="tipo-justificacion" class="form-control">
+                                                <option value="">Seleccionar tipo</option>
+                                                <option value="enfermedad">Enfermedad</option>
+                                                <option value="cita_medica">Cita médica</option>
+                                                <option value="emergencia_familiar">Emergencia familiar</option>
+                                                <option value="actividad_institucional">Actividad institucional</option>
+                                                <option value="otro">Otro</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Información Adicional -->
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Información Adicional</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label class="form-label" for="observaciones">Observaciones</label>
+                                            <textarea class="form-control" id="observaciones" rows="3" placeholder="Observaciones adicionales sobre la asistencia..."></textarea>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="form-label" for="evidencia">Evidencia (Opcional)</label>
+                                            <input type="file" id="evidencia" class="form-control" accept=".pdf,.jpg,.jpeg,.png" />
+                                            <small class="form-text text-muted">Formatos aceptados: PDF, JPG, PNG (Máx. 5MB)</small>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="notificar-familia">
+                                                <label class="form-check-label" for="notificar-familia">
+                                                    Notificar a la familia
+                                                </label>
+                                                <small class="form-text text-muted">Enviará una notificación al acudiente principal</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Botones -->
+                                <button type="button" class="btn-create btn btn-primary btn-block mb-4">Registrar Asistencia</button>
+                                <button type="button" class="d-none btn-update btn btn-success btn-block mb-4">Actualizar Asistencia</button>
+                            </form>
+                        </div>
+
+                        <!-- Panel de Información -->
+                        <div class="col-4">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Estadísticas del Estudiante</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div id="estadisticas-estudiante">
+                                        <p class="text-muted">Selecciona un estudiante para ver sus estadísticas</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card shadow">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Información del Sistema</h6>
+                                </div>
+                                <div class="card-body">
+                                    <p class="small">
+                                        <strong>Nota:</strong> El sistema registra automáticamente:
+                                    </p>
+                                    <ul class="small">
+                                        <li>Fecha y hora del registro</li>
+                                        <li>Usuario que registra</li>
+                                        <li>IP del equipo</li>
+                                    </ul>
+                                    <p class="small text-muted">
+                                        Las asistencias se pueden filtrar y exportar para reportes.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Sistema Educativo 2024</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+        </div>
+        <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">¿Listo para salir?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Selecciona "Cerrar Sesión" si estás listo para finalizar tu sesión actual.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-primary" href="login.html">Cerrar Sesión</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="js/sb-admin-2.min.js"></script>
+    
+    <!-- Componentes -->
+    <script src="js/components/sidebar.js"></script>
+    <script src="js/components/topbar.js"></script>
+    
+    <!-- Script específico del módulo -->
+    <script src="js/modulos/crear-asistencia.js"></script>
+</body>
+
+</html>
