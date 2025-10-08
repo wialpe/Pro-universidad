@@ -1,15 +1,11 @@
-import React from 'react'
+import React from 'react';
+import Estadisticas from "./Estadisticas";
 
-export default function ontent() {
+export default function Content() {
   return (
-    <>
-      {/* Content Wrapper */}
-        <div id="content-wrapper" className="d-flex flex-column">
-            {/* Main Content */}
-            <div id="content">
-
-            </div>
-        </div>
-    </>
-  )
+    <main className="w-100">
+      <Estadisticas />
+    </main>
+  );
 }
+
