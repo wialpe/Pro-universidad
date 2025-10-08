@@ -179,14 +179,7 @@ export default function Estadisticas() {
         </TableCard>
       </div>
 
-      {/* Footer */}
-      <footer className="sticky-footer bg-white mt-4">
-        <div className="container my-auto">
-          <div className="copyright text-center my-auto">
-            <span>Copyright © Sistema Educativo {new Date().getFullYear()}</span>
-          </div>
-        </div>
-      </footer>
+
     </div>
   );
 }
