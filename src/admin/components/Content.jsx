@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import Estadisticas from "./Estadisticas";
 
 export default function Content() {
   return (
