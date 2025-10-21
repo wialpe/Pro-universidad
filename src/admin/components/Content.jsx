@@ -2,7 +2,19 @@ import React from 'react';
 import { useApp } from '../../context/AppContext';
 import Estadisticas from "./Estadisticas";
 
-// Dashboard por defecto
+// --- Dashboards por rol ---
+import AdminDashboard from '../pages/dashboards/AdminDashboard';
+import DocenteDashboard from '../pages/dashboards/DocenteDashboard';
+import EstudianteDashboard from '../pages/dashboards/EstudianteDashboard';
+import FamiliarDashboard from '../pages/dashboards/FamiliarDashboard';
+
+// --- Auth pages ---
+import Login from '../../auth/Login';
+import Register from '../../auth/Register';
+
+// =========================
+// Dashboard por defecto (tu versión)
+// =========================
 const Dashboard = () => (
   <>
     {/* Encabezado de página */}
@@ -161,19 +173,34 @@ const Dashboard = () => (
   </>
 );
 
+// =========================
+// Content integrado
+// =========================
 export default function Content() {
-  const { currentView } = useApp();
+  const { currentView, usuarioActivo } = useApp();
 
-  const renderContent = () => {
+  const view = (() => {
+    // Si hay usuario activo, prioriza dashboards por rol
+    if (usuarioActivo) {
+      switch (currentView) {
+        case 'dashboard_admin': return <AdminDashboard />;
+        case 'dashboard_docente': return <DocenteDashboard />;
+        case 'dashboard_estudiante': return <EstudianteDashboard />;
+        case 'dashboard_familiar': return <FamiliarDashboard />;
+        default: break; // sigue abajo a navegación general
+      }
+    }
+
+    // Navegación general (tu app)
     switch (currentView) {
-      case 'estadisticas':
-        return <Estadisticas />;
+      case 'login': return <Login />;
+      case 'register': return <Register />;
+      case 'estadisticas': return <Estadisticas />;
       case 'dashboard':
       default:
         return <Dashboard />;
     }
-  };
+  })();
 
-  return renderContent();
+  return view;
 }
-

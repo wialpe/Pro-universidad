@@ -2,137 +2,184 @@ import React from 'react';
 import { useApp } from '../../context/AppContext';
 
 export default function Aside() {
-  const { navigateTo } = useApp();
+  const { navigateTo, usuarioActivo } = useApp();
+  const role = (usuarioActivo?.tipoAcceso || '').toLowerCase();
+
+  // A dónde debe ir el botón "Dashboard" según rol
+  const dashboardView = usuarioActivo
+    ? `dashboard_${role}` // p.e. dashboard_familiar
+    : 'dashboard';
+
+  // ====== Definición de menús por rol ======
+  const roleMenus = {
+    administrador: [
+      {
+        header: 'GESTIÓN',
+        items: [
+          { icon: 'fas fa-users-cog', text: 'Usuarios', view: 'admin_users' },
+          { icon: 'fas fa-file-alt', text: 'Reportes', view: 'admin_reports' },
+          { icon: 'fas fa-cogs', text: 'Configuración', view: 'admin_settings' },
+        ],
+      },
+      {
+        header: 'GESTIÓN ACADÉMICA',
+        items: [
+          { icon: 'fas fa-user-graduate', text: 'Estudiantes', view: 'acad_students' },
+          { icon: 'fas fa-clipboard-list', text: 'Notas', view: 'acad_grades' },
+          { icon: 'fas fa-calendar-check', text: 'Asistencias', view: 'acad_attendance' },
+          { icon: 'fas fa-heartbeat', text: 'Bienestar', view: 'acad_wellbeing' },
+          { icon: 'fas fa-users', text: 'Familiares', view: 'acad_families' },
+        ],
+      },
+      {
+        header: 'REPORTES',
+        items: [{ icon: 'fas fa-chart-area', text: 'Estadísticas', view: 'estadisticas' }],
+      },
+    ],
+    docente: [
+      {
+        header: 'DOCENTE',
+        items: [
+          { icon: 'fas fa-chalkboard-teacher', text: 'Mis Clases', view: 'teacher_classes' },
+          { icon: 'fas fa-user-graduate', text: 'Estudiantes', view: 'teacher_students' },
+          { icon: 'fas fa-upload', text: 'Cargar Notas', view: 'teacher_upload_grades' },
+          { icon: 'fas fa-calendar-check', text: 'Asistencia', view: 'teacher_attendance' },
+        ],
+      },
+      {
+        header: 'REPORTES',
+        items: [{ icon: 'fas fa-chart-area', text: 'Estadísticas', view: 'estadisticas' }],
+      },
+    ],
+    estudiante: [
+      {
+        header: 'MI PROGRESO',
+        items: [
+          { icon: 'fas fa-book', text: 'Materias', view: 'student_subjects' },
+          { icon: 'fas fa-tasks', text: 'Tareas', view: 'student_tasks' },
+          { icon: 'fas fa-calendar-alt', text: 'Horario', view: 'student_schedule' },
+          { icon: 'fas fa-clipboard-list', text: 'Mis Notas', view: 'student_grades' },
+        ],
+      },
+      {
+        header: 'REPORTES',
+        items: [{ icon: 'fas fa-chart-area', text: 'Estadísticas', view: 'estadisticas' }],
+      },
+    ],
+    familiar: [
+      {
+        header: 'FAMILIA',
+        items: [
+          { icon: 'fas fa-child', text: 'Hijos', view: 'family_children' },
+          { icon: 'fas fa-comments', text: 'Mensajes', view: 'family_messages' },
+          { icon: 'fas fa-envelope', text: 'Citaciones', view: 'family_meetings' },
+          { icon: 'fas fa-calendar-alt', text: 'Eventos', view: 'family_events' },
+        ],
+      },
+      {
+        header: 'REPORTES',
+        items: [{ icon: 'fas fa-chart-area', text: 'Estadísticas', view: 'estadisticas' }],
+      },
+    ],
+  };
+
+  // Menú por defecto cuando NO hay sesión (tu menú original resumido)
+  const publicMenu = [
+    {
+      header: null,
+      items: [
+        { icon: 'fas fa-fw fa-tachometer-alt', text: 'Dashboard', view: 'dashboard' },
+        { icon: 'fas fa-sign-in-alt', text: 'Ingresar', view: 'login' },
+        { icon: 'fas fa-user-plus', text: 'Registrarse', view: 'register' },
+      ],
+    },
+    {
+      header: 'GESTIÓN ACADÉMICA',
+      items: [
+        { icon: 'fas fa-user-graduate', text: 'Estudiantes', view: 'acad_students' },
+        { icon: 'fas fa-clipboard-list', text: 'Notas', view: 'acad_grades' },
+        { icon: 'fas fa-calendar-check', text: 'Asistencias', view: 'acad_attendance' },
+        { icon: 'fas fa-heartbeat', text: 'Bienestar', view: 'acad_wellbeing' },
+        { icon: 'fas fa-users', text: 'Familiares', view: 'acad_families' },
+      ],
+    },
+    {
+      header: 'REPORTES',
+      items: [{ icon: 'fas fa-chart-area', text: 'Estadísticas', view: 'estadisticas' }],
+    },
+  ];
+
+  const sections = usuarioActivo ? roleMenus[role] || publicMenu : publicMenu;
+
   return (
     <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
       {/* Sidebar - Brand */}
-      <a className="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <a
+        className="sidebar-brand d-flex align-items-center justify-content-center"
+        href="#"
+        onClick={(e) => {
+          e.preventDefault();
+          navigateTo(dashboardView);
+        }}
+      >
         <div className="sidebar-brand-icon rotate-n-15">
           <i className="fas fa-graduation-cap"></i>
         </div>
-        <div className="sidebar-brand-text mx-3">Sistema <sup>Edu</sup></div>
+        <div className="sidebar-brand-text mx-3">
+          SISTEMA <sup>EDU</sup>
+        </div>
       </a>
 
       {/* Divider */}
       <hr className="sidebar-divider my-0" />
 
-      {/* Nav Item - Dashboard */}
-      <li className="nav-item active">
-        <a className="nav-link" href="#" onClick={(e) => { e.preventDefault(); navigateTo('dashboard'); }}>
+      {/* Item fijo: Dashboard (siempre visible, va a dashboard del rol si hay sesión) */}
+      <li className="nav-item">
+        <a
+          className="nav-link"
+          href="#"
+          onClick={(e) => {
+            e.preventDefault();
+            navigateTo(dashboardView);
+          }}
+        >
           <i className="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span>
         </a>
       </li>
 
-      {/* Divider */}
-      <hr className="sidebar-divider" />
+      {/* Si NO hay sesión, mostramos Ingresar/Registrarse arriba (ya están en publicMenu).
+          Si hay sesión, NO los incluimos (porque sections proviene de roleMenus). */}
+      {sections.map((section, si) => (
+        <React.Fragment key={si}>
+          <hr className="sidebar-divider" />
+          {section.header ? <div className="sidebar-heading">{section.header}</div> : null}
 
-      {/* Heading */}
-      <div className="sidebar-heading">
-        Gestión Académica
-      </div>
+          {section.items.map((it, ii) => (
+            <li className="nav-item" key={`${si}-${ii}`}>
+              <a
+                className="nav-link"
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigateTo(it.view || 'dashboard');
+                }}
+              >
+                <i className={it.icon}></i>
+                <span>{it.text}</span>
+              </a>
+            </li>
+          ))}
+        </React.Fragment>
+      ))}
 
-      {/* Nav Item - Estudiantes */}
-      <li className="nav-item">
-        <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEstudiantes"
-          aria-expanded="true" aria-controls="collapseEstudiantes">
-          <i className="fas fa-fw fa-user-graduate"></i>
-          <span>Estudiantes</span>
-        </a>
-        <div id="collapseEstudiantes" className="collapse" aria-labelledby="headingEstudiantes"
-          data-parent="#accordionSidebar">
-          <div className="bg-white py-2 collapse-inner rounded">
-            <h6 className="collapse-header">Opciones:</h6>
-            <a className="collapse-item" href="#">Listado</a>
-            <a className="collapse-item" href="#">Agregar Nuevo</a>
-            <a className="collapse-item" href="#">Importar</a>
-          </div>
-        </div>
-      </li>
-
-      {/* Nav Item - Notas */}
-      <li className="nav-item">
-        <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseNotas"
-          aria-expanded="true" aria-controls="collapseNotas">
-          <i className="fas fa-fw fa-clipboard-list"></i>
-          <span>Notas</span>
-        </a>
-        <div id="collapseNotas" className="collapse" aria-labelledby="headingNotas" data-parent="#accordionSidebar">
-          <div className="bg-white py-2 collapse-inner rounded">
-            <h6 className="collapse-header">Gestión de Notas:</h6>
-            <a className="collapse-item" href="#">Ver Notas</a>
-            <a className="collapse-item" href="#">Cargar Notas</a>
-            <a className="collapse-item" href="#">Reportes</a>
-          </div>
-        </div>
-      </li>
-
-      {/* Nav Item - Asistencias */}
-      <li className="nav-item">
-        <a className="nav-link" href="#">
-          <i className="fas fa-fw fa-calendar-check"></i>
-          <span>Asistencias</span>
-        </a>
-      </li>
-
-      {/* Nav Item - Bienestar */}
-      <li className="nav-item">
-        <a className="nav-link" href="#">
-          <i className="fas fa-fw fa-heartbeat"></i>
-          <span>Bienestar</span>
-        </a>
-      </li>
-
-      {/* Nav Item - Familiares */}
-      <li className="nav-item">
-        <a className="nav-link" href="#">
-          <i className="fas fa-fw fa-users"></i>
-          <span>Familiares</span>
-        </a>
-      </li>
-
-      {/* Divider */}
-      <hr className="sidebar-divider" />
-
-      {/* Heading */}
-      <div className="sidebar-heading">
-        Reportes
-      </div>
-
-      {/* Nav Item - Estadísticas */}
-      <li className="nav-item">
-        <a className="nav-link" href="#" onClick={(e) => { e.preventDefault(); navigateTo('estadisticas'); }}>
-          <i className="fas fa-fw fa-chart-area"></i>
-          <span>Estadísticas</span>
-        </a>
-      </li>
-
-      {/* Nav Item - Reportes */}
-      <li className="nav-item">
-        <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReportes"
-          aria-expanded="true" aria-controls="collapseReportes">
-          <i className="fas fa-fw fa-folder"></i>
-          <span>Reportes</span>
-        </a>
-        <div id="collapseReportes" className="collapse" aria-labelledby="headingReportes" data-parent="#accordionSidebar">
-          <div className="bg-white py-2 collapse-inner rounded">
-            <h6 className="collapse-header">Tipos de Reporte:</h6>
-            <a className="collapse-item" href="#">Académico</a>
-            <a className="collapse-item" href="#">Asistencia</a>
-            <a className="collapse-item" href="#">Disciplinario</a>
-          </div>
-        </div>
-      </li>
-
-      {/* Divider */}
+      {/* Divider final */}
       <hr className="sidebar-divider d-none d-md-block" />
 
       {/* Sidebar Toggler (Sidebar) */}
       <div className="text-center d-none d-md-inline">
         <button className="rounded-circle border-0" id="sidebarToggle"></button>
       </div>
-
     </ul>
   );
 }
