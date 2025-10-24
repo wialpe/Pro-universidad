@@ -1,6 +1,7 @@
 import React from 'react';
 import { useApp } from '../../context/AppContext';
 import Estadisticas from "./Estadisticas";
+import AsistenciaForm from "../components/AsistenciaForm";
 
 // --- Dashboards por rol ---
 import AdminDashboard from '../pages/dashboards/AdminDashboard';
@@ -196,6 +197,7 @@ export default function Content() {
       case 'login': return <Login />;
       case 'register': return <Register />;
       case 'estadisticas': return <Estadisticas />;
+      case 'acad_attendance': return <AsistenciaForm />;
       case 'dashboard':
       default:
         return <Dashboard />;
