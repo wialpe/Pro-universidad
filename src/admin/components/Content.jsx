@@ -1,7 +1,9 @@
 import React from 'react';
 import { useApp } from '../../context/AppContext';
 import Estadisticas from "./Estadisticas";
-import AsistenciaForm from "../components/AsistenciaForm";
+import AsistenciaForm from "./AsistenciaForm";
+import EstudiantesForm from "./EstudiantesForm";
+import NotasForm from "./NotasForm";
 
 // --- Dashboards por rol ---
 import AdminDashboard from '../pages/dashboards/AdminDashboard';
@@ -197,7 +199,20 @@ export default function Content() {
       case 'login': return <Login />;
       case 'register': return <Register />;
       case 'estadisticas': return <Estadisticas />;
+      
+      // Módulos académicos
+      case 'acad_students': return <EstudiantesForm />;
+      case 'acad_grades': return <NotasForm />;
       case 'acad_attendance': return <AsistenciaForm />;
+      
+      // Vistas para docentes
+      case 'teacher_students': return <EstudiantesForm />;
+      case 'teacher_upload_grades': return <NotasForm />;
+      case 'teacher_attendance': return <AsistenciaForm />;
+      
+      // Vistas para estudiantes
+      case 'student_grades': return <NotasForm />;
+      
       case 'dashboard':
       default:
         return <Dashboard />;
